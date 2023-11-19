@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoServer Leaflet Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+    <div id="map" style="height: 700px;"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Configuración básica del mapa
+        var map = L.map('map').setView([-17.036500, -65.015036], 5);
+
+        // Capa base de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Capa desde GeoServer
+        var geoServerLayer = L.tileLayer.wms('http://localhost:8080/geoserver/local/wms', {
+            layers: 'municipio_geo',
+            format: 'image/png',
+            transparent: true,
+            attribution: 'Datos © GeoServer'
+        }).addTo(map);
+    </script>
+</body>
+</html>
